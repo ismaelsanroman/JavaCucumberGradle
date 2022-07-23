@@ -16,9 +16,9 @@ public class TestBoxSteps {
         testBox.goToElements();
     }
 
-    @When("^Rellenamos los campos que nos muestra$")
-    public void insertText() {
-        testBox.insertText();
+    @When("Rellenamos los campos nombre: <{string}>, email: <{string}>, dirección actual: <{string}> y dirección: <{string}>")
+    public void insertText(String name, String email, String actDir, String perDir) {
+        testBox.insertText(name, email, actDir, perDir);
     }
 
     @And("^Pulsamos sobre el boton de Submit$")

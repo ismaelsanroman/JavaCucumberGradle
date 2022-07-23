@@ -20,6 +20,9 @@ public class FunctionsPage {
     static {
         ChromeOptions chromeOptions = new ChromeOptions();
         WebDriverManager.chromedriver().setup();
+        // chromeOptions.addArguments ("--headless", "--disable-gpu",
+        // "--window-size=1920,1200",
+        // "--ignore-certificate-errors","--disable-extensions","--no-sandbox","--disable-dev-shm-usage");
         driver = new ChromeDriver(chromeOptions);
     }
 
@@ -40,6 +43,12 @@ public class FunctionsPage {
         driver.findElement(By.xpath(tag)).click();
     }
 
+    public static void clickId(String tag) {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(By.id(tag)));
+        driver.findElement(By.id(tag)).click();
+    }
+
     // Función de click especial cuando el normal no funciona
     public static void specialClick(String tag) {
         new WebDriverWait(driver, Duration.ofSeconds(5))
@@ -49,19 +58,25 @@ public class FunctionsPage {
     }
 
     // Función para obtener el texto de un sitio determinado
-    public static void getText(String tag) {
+    public static String getTextId(String tag) {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(By.id(tag)));
+        return driver.findElement(By.id(tag)).getText();
+    }
+
+    public static String getTextXp(String tag) {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath(tag)));
-        driver.findElement(By.xpath(tag)).getText();
+        return driver.findElement(By.xpath(tag)).getText();
     }
 
     // Función para enviar el texto que deseemos
     public static void sendText(String tag, String text) {
         new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath(tag)));
+                .until(ExpectedConditions.elementToBeClickable(By.id(tag)));
 
-        driver.findElement(By.xpath(tag)).clear();
-        driver.findElement(By.xpath(tag)).sendKeys(text);
+        driver.findElement(By.id(tag)).clear();
+        driver.findElement(By.id(tag)).sendKeys(text);
     }
 
     // Función de espera implicita
